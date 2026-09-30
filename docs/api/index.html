@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API reference — Acme Telemetry</title>
+<meta name="description" content="Endpoints, authentication, pagination, versioning.">
+<link rel="canonical" href="https://silverjke.github.io/hintli-e2e-testsite/docs/api/">
+<style>
+:root{--ink:#14161a;--muted:#5b6472;--line:#e4e7ec;--accent:#2f4bd8;--bg:#fff}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{border-bottom:1px solid var(--line)}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+nav{display:flex;flex-wrap:wrap;gap:18px;align-items:center;padding:16px 0}
+nav a{color:var(--muted);text-decoration:none;font-size:14px}
+nav a:hover,nav a.brand{color:var(--ink)}
+nav a.brand{font-weight:650;font-size:16px;margin-right:6px}
+main{padding:30px 0 50px}
+h1{font-size:30px;line-height:1.25;margin:.2em 0 .6em}
+h2{font-size:20px;margin:1.6em 0 .5em}
+p,li{color:#20242b}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f7f8fa}
+pre{background:#f7f8fa;border:1px solid var(--line);padding:12px;overflow:auto;font-size:13px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 40px;color:var(--muted);font-size:13px}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav><a href="/hintli-e2e-testsite/" class='brand'>Acme Telemetry</a><a href="/hintli-e2e-testsite/product/">Product</a><a href="/hintli-e2e-testsite/pricing/">Pricing</a><a href="/hintli-e2e-testsite/docs/">Docs</a><a href="/hintli-e2e-testsite/integrations/">Integrations</a><a href="/hintli-e2e-testsite/security/">Security</a><a href="/hintli-e2e-testsite/customers/">Customers</a><a href="/hintli-e2e-testsite/blog/">Blog</a><a href="/hintli-e2e-testsite/contact/">Contact</a></nav></div></header>
+<main><div class="wrap">
+<h1>API reference</h1>
+<h2>Base URL and version</h2>
+<p><code>https://api.example-acme-telemetry.test/v1</code>. The version is in the path and we do
+not remove versions.</p>
+<h2>Authentication</h2>
+<p>Bearer token in the Authorization header. Keys are scoped to one workspace and one mode,
+sandbox or live. A key can be read-only or read-write.</p>
+<h2>Endpoints</h2>
+<table>
+<tr><th>Method</th><th>Path</th><th>What it does</th></tr>
+<tr><td>POST</td><td>/v1/events</td><td>Send one event or a batch of up to 1,000</td></tr>
+<tr><td>GET</td><td>/v1/events</td><td>Query raw events within your retention window</td></tr>
+<tr><td>GET</td><td>/v1/meters</td><td>List meters</td></tr>
+<tr><td>POST</td><td>/v1/meters</td><td>Create a meter</td></tr>
+<tr><td>GET</td><td>/v1/usage</td><td>Metered quantities per customer per period</td></tr>
+<tr><td>POST</td><td>/v1/backfills</td><td>Recompute a closed period, returns a correction</td></tr>
+<tr><td>GET</td><td>/v1/customers</td><td>List customers and entitlements</td></tr>
+</table>
+<h2>Pagination</h2>
+<p>Cursor based. Pass <code>limit</code> up to 1,000 and follow <code>next_cursor</code> until it
+is null. Offsets are not supported.</p>
+<h2>Idempotency</h2>
+<p>Every write takes an <code>idempotency_key</code>. Keys live 48 hours. Replaying a key returns
+the original response and changes nothing.</p>
+<h2>Timestamps</h2>
+<p>RFC 3339, always UTC. Events up to 72 hours old are attributed to their own period; older than
+that they are rejected with <code>event_too_late</code>.</p>
+</div></main>
+<footer><div class="wrap">
+<p><strong>Acme Telemetry is a fictional product.</strong> This site exists only to test an AI assistant
+end to end. No real company, people, customers or prices are described, and nothing here can be bought.</p>
+<p><a href="/hintli-e2e-testsite/legal/terms/">Terms</a> · <a href="/hintli-e2e-testsite/legal/privacy/">Privacy</a> ·
+<a href="/hintli-e2e-testsite/legal/dpa/">DPA</a> · <a href="/hintli-e2e-testsite/legal/sla/">SLA</a> ·
+<a href="/hintli-e2e-testsite/security/">Security</a> · <a href="/hintli-e2e-testsite/status/">Status</a> ·
+<a href="/hintli-e2e-testsite/changelog/">Changelog</a> · <a href="/hintli-e2e-testsite/about/">About</a></p>
+</div></footer>
+</body></html>

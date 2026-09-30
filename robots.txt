@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://silverjke.github.io/hintli-e2e-testsite/sitemap.xml
